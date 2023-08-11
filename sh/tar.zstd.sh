@@ -11,4 +11,4 @@ fi
 DNAME=$(basename $DIR)
 
 cd ..
-tar -I "zstd -T0 --auto-threads=logical -19" -cf $DNAME.tar.zstd $DNAME
+tar -I "zstd -19" -cf $DNAME.tar.zstd $DNAME
