@@ -14,4 +14,7 @@ if [ -x "$(command -v nvcc)" ]; then
   export LIBRARY_PATH=$LIBRARY_PATH:$CUDA_LIB/lib64:$CUDA_LIB/compat
 fi
 
-./main.py
+while true; do
+  ./main.py
+  sleep 1
+done
