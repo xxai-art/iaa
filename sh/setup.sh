@@ -27,4 +27,7 @@ python -m venv .direnv/python
 source .direnv/python/bin/activate
 pip install -r requirements.txt
 
+pip uninstall -y nvidia-cudnn-cu11
+pip install nvidia-cudnn-cu11==8.6.0.163
+
 wait
