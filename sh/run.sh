@@ -7,4 +7,5 @@ set -ex
 source .direnv/python/bin/activate
 set -o allexport
 source .env
+set +o allexport
 ./main.py
