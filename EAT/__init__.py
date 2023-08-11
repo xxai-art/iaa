@@ -5,8 +5,9 @@ import yaml
 from io import BytesIO
 
 from os.path import abspath, dirname, join
+from torch import _dynamo
 
-torch._dynamo.config.verbose = True
+_dynamo.config.verbose = True
 
 PWD = dirname(abspath(__file__))
 MODEL = join(dirname(PWD), 'model')
