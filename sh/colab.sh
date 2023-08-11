@@ -17,5 +17,5 @@ if [ -d "$gdrive" ]; then
   cp -R $gdrive/iaa/model . &
 fi
 
-source $DIR/_setup.sh
+source $DIR/sh/_setup.sh
 wait

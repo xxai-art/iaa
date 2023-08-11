@@ -9,6 +9,6 @@ set -ex
 rm .env
 cp /kaggle/input/config/.env .
 
-source $DIR/_setup.sh
+source $DIR/sh/_setup.sh
 
 wait
