@@ -72,4 +72,4 @@ outdir=/tmp/tensorflow
 rm -rf $outdir
 mkdir -p $outdir
 bazel-bin/tensorflow/tools/pip_package/build_pip_package --dst $outdir
-direnv exec . pip install $outdir/*.whl
+direnv exec . pip install --force-reinstall $outdir/*.whl
