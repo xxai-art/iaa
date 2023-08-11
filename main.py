@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import aiohttp
+from loguru import logger
 from lib.score import score
 import numpy as np
 import asyncio
@@ -49,7 +50,7 @@ async def fetch(url):
       return await response.read()
 
 
-async def iaa(id):
+async def _iaa(id):
   hash, = await (await CONN.execute(
       SQL('SELECT hash FROM bot.task WHERE id={}').format(id))).fetchone()
   url = URL + hash
@@ -70,6 +71,21 @@ async def iaa(id):
     return 'clip', id
   else:
     print('iaa=%d' % s, id, url)
+
+
+async def iaa(id):
+  n = 0
+  while 1:
+    try:
+      return await _iaa(id)
+    except psycopg.OperationalError as err:
+      await asyncio.sleep(1)
+      n += 1
+      if n < 6:
+        logger.exception(err)
+        conn()
+        continue
+      raise err
 
 
 run('iaa', iaa)
