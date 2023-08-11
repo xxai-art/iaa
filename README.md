@@ -20,3 +20,7 @@ https://www.kaggle.com/xxaiart/iaa-img/edit
 !iaa/sh/kaggle.sh
 !iaa/sh/run.sh
 ```
+
+打包
+
+`./sh/tar.zstd.sh`
