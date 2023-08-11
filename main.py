@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+import aiohttp
+from lib.score import score
+import numpy as np
+import asyncio
+from retrying import retry
+from io import BytesIO
+from lib.min_max import MIN, MAX_MIN
+from xsmpy import run,u64_bin
+from os import getenv
+import psycopg
+from psycopg.sql import SQL
+import pillow_avif  # noqa
+from PIL import Image
+from redis.asyncio import StrictRedis
+
+REDIS_HOST,REDIS_PORT=getenv('KV_HOST_PORT').split(':')
+
+REDIS = StrictRedis(host=REDIS_HOST,port=int(REDIS_PORT),password=getenv('KV_PASSWORD'))
+
+CONN = None
+
+
+async def conn():
+  global CONN
+  CONN = await psycopg.AsyncConnection.connect(
+    'postgresql://' + getenv('PG_URI'),
+    autocommit=True
+  )
+
+
+asyncio.run(conn())
+
+POWER = np.array((0.128991374450439, 0.394689166910878, 0.476319458638683))
+
+URL = 'https://5ok.pw/h950/'
+
+
+def normalize_score(img):
+  li = np.array(score(img))
+  return np.dot((li - MIN) / MAX_MIN, POWER)
+
+
+@retry(stop_max_attempt_number=9)
+async def fetch(url):
+  async with aiohttp.ClientSession() as session:
+    async with session.get(url) as response:
+      return await response.read()
+
+
+async def iaa(id):
+  hash, = await (await CONN.execute(
+      SQL('SELECT hash FROM bot.task WHERE id={}').format(id))).fetchone()
+  url = URL + hash
+
+  bin = BytesIO(await fetch(url))
+  img = Image.open(bin)
+  img = img.convert('RGB')
+  bin = BytesIO()
+  img.save(bin, 'PNG', compress_level=0)
+  s = min(127,max(0,round(100 * normalize_score(bin.getvalue()))))
+
+  print(id,s)
+  await CONN.execute(
+      SQL('UPDATE bot.task SET iaa={} WHERE id={}').format(s, id))
+
+  if s > 25:
+    await REDIS.hset('iaa',u64_bin(id),u64_bin(s))
+    return 'clip', id
+  else:
+    print('iaa=%d' % s, id, url)
+
+
+run('iaa', iaa)

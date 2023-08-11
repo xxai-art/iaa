@@ -1,0 +1,6 @@
+*.log
+model/
+.DS_Store
+.direnv/python/
+__pycache__
+*.tar.*

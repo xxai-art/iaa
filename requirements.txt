@@ -1,0 +1,16 @@
+redis[hiredis]
+aiohttp[speedups]
+retrying
+pillow-avif-plugin
+Pillow
+torch
+tensorflow
+xsmpy
+einops
+timm
+Pillow
+pyyaml
+fire
+torchvision
+numpy
+psycopg[binary,pool]
