@@ -9,7 +9,7 @@ set -o allexport
 source .env
 set +o allexport
 
-if ! [ -x "$(command -v nvcc)" ]; then
+if [ -x "$(command -v nvcc)" ]; then
   CUDA_LIB=/usr/local/cuda-$(nvcc -V | grep -o -E '[0-9]+\.[0-9]+' | head -1)
   export LIBRARY_PATH=$LIBRARY_PATH:$CUDA_LIB/lib64:$CUDA_LIB/compat
 fi
