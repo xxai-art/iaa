@@ -1,10 +1,10 @@
+tensorflow
 redis[hiredis]
 aiohttp[speedups]
 retrying
 pillow-avif-plugin
 Pillow
 torch
-tensorflow
 xsmpy
 einops
 timm
