@@ -16,8 +16,6 @@ https://www.kaggle.com/xxaiart/iaa-img/edit
 
 ```
 !git clone --depth=1 https://github.com/xxai-art/iaa.git
-
-!cd iaa
-
+!iaa/colab/kaggle.sh
 !iaa/colab/run.sh
 ```
