@@ -1,9 +1,12 @@
 import torch
+
 from PIL import Image
 import yaml
 from io import BytesIO
 
 from os.path import abspath, dirname, join
+
+torch._dynamo.config.verbose = True
 
 PWD = dirname(abspath(__file__))
 MODEL = join(dirname(PWD), 'model')
