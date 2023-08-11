@@ -19,5 +19,5 @@ https://www.kaggle.com/xxaiart/iaa-img/edit
 python -m venv .direnv/python && \
 source .direnv/python/bin/activate &&\
 pip install -r requirements.txt
-!cd iaa;rm .env;cp /kaggle/input/iaa-env/.env .;iaa/colab/run.sh
+!cd iaa;rm .env;cp /kaggle/input/iaa-env/.env .;colab/run.sh
 ```
