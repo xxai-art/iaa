@@ -26,7 +26,8 @@ direnv exec . pip install -U pip numpy wheel
 direnv exec . pip install -U keras_preprocessing --no-deps
 
 if [ ! -d "tensorflow" ]; then
-  git clone -b v2.13.0 --depth=1 https://github.com/tensorflow/tensorflow.git
+  git clone --depth=1 https://github.com/tensorflow/tensorflow.git
+  #git clone -b v2.13.0 --depth=1 https://github.com/tensorflow/tensorflow.git
 fi
 
 cd tensorflow
@@ -66,7 +67,7 @@ bazel build --verbose_failures --config=opt \
   --copt=-mavx --copt=-mavx2 --copt=-mfma \
   -k //tensorflow/tools/pip_package:build_pip_package
 
-bazel-bin/tensorflow/tools/pip_package/build_pip_package
+#bazel-bin/tensorflow/tools/pip_package/build_pip_package
 outdir=/tmp/tensorflow
 rm -rf $outdir
 mkdir -p $outdir
