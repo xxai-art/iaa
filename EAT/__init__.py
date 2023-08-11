@@ -13,16 +13,26 @@ PWD = dirname(abspath(__file__))
 MODEL = join(dirname(PWD), 'model')
 
 MPS = torch.backends.mps.is_available()
-if MPS:
-  DEVICE = 'mps'
-elif torch.cuda.is_available():
-  DEVICE = "cuda"
-else:
-  DEVICE = 'cpu'
+
+
+def detect_device():
+  try:
+    import torch_xla.core.xla_model as xm
+    return xm.xla_device()
+  except ImportError:
+    pass
+  if MPS:
+    device = 'mps'
+  elif torch.cuda.is_available():
+    device = "cuda"
+  else:
+    device = 'cpu'
+  return torch.device(device)
+
+
+DEVICE = detect_device()
 
 print(f'torch device {DEVICE}')
-
-DEVICE = torch.device(DEVICE)
 
 
 def load_model(model, dat):
