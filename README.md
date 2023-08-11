@@ -8,14 +8,14 @@ from google.colab import drive
 drive.mount('/content/gdrive')
 
 !git clone --depth=1 https://github.com/xxai-art/iaa.git
-!iaa/colab/setup.sh
-!iaa/colab/run.sh
+!iaa/sh/setup.sh
+!iaa/sh/run.sh
 ```
 
 https://www.kaggle.com/xxaiart/iaa-img/edit
 
 ```
 !git clone --depth=1 https://github.com/xxai-art/iaa.git
-!iaa/colab/kaggle.sh
-!iaa/colab/run.sh
+!iaa/sh/kaggle.sh
+!iaa/sh/run.sh
 ```
