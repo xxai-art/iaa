@@ -10,7 +10,6 @@ einops
 timm
 Pillow
 pyyaml
-fire
 torchvision
 numpy
 psycopg[binary,pool]
