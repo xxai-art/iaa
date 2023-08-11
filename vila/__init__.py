@@ -11,6 +11,6 @@ def score(bin):
   # byte_io.seek(0)
   # bin = byte_io.read()
   img = tf.constant(bin)
-  predictions = _predict(img)
+  predictions = _predict(image_bytes=img)
   score = predictions['predictions']
   return score[0][0].numpy()
