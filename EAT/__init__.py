@@ -16,6 +16,8 @@ elif torch.cuda.is_available():
 else:
   DEVICE = 'cpu'
 
+print(f'torch device {DEVICE}')
+
 DEVICE = torch.device(DEVICE)
 
 
