@@ -1,3 +1,4 @@
+loguru
 tensorflow
 redis[hiredis]
 aiohttp[speedups]
