@@ -7,7 +7,7 @@ set -ex
 ./init.sh &
 
 rm .env
-cp /kaggle/input/iaa-env/.env .
+cp /kaggle/input/config/.env .
 
 if ! [ -x "$(command -v cargo)" ]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
