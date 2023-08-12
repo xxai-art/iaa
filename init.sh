@@ -4,11 +4,10 @@ DIR=$(realpath $0) && DIR=${DIR%/*}
 cd $DIR
 set -ex
 
-direnv allow
-
-init_py(){
-rtx install
-direnv exec . pip install -r requirements.txt
+init_py() {
+  rtx install
+  direnv allow
+  direnv exec . pip install -r requirements.txt
 }
 
 init_py &
