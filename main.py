@@ -83,7 +83,7 @@ async def iaa(id):
       n += 1
       if n < 6:
         logger.exception(err)
-        conn()
+        await conn()
         continue
       raise err
 
