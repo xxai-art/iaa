@@ -5,8 +5,13 @@ cd $DIR
 set -ex
 
 direnv allow
+
+init_py(){
 rtx install
-direnv exec . pip install -r requirements.txt &
+direnv exec . pip install -r requirements.txt
+}
+
+init_py &
 
 source ./tar/file.sh
 
