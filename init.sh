@@ -4,6 +4,10 @@ DIR=$(realpath $0) && DIR=${DIR%/*}
 cd $DIR
 set -ex
 
+direnv allow
+rtx install
+direnv exec . pip install -r requirements.txt &
+
 source ./tar/file.sh
 
 mkdir -p model
@@ -17,3 +21,5 @@ for file in ${FILE[@]}; do
     rm $f
   fi
 done
+
+wait
