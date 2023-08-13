@@ -39,7 +39,7 @@ if ! [ -x "$(command -v bazel)" ]; then
   mv bazel-archive-keyring.gpg /usr/share/keyrings
   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
 
-  apt-get update
+  apt-get update || true
   apt-get install -y bazel
 fi
 
