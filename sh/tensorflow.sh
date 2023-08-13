@@ -56,7 +56,7 @@ export TF_NEED_CUDA=0
 export PYTHON_BIN_PATH=$(direnv exec . which python3)
 
 bazel version | grep "Build label" | sed 's/.*: \+//g' >.bazelversion
-yes | direnv exec . ./configure
+direnv exec . ./configure
 
 # 从源代码构建 TensorFlow 以获取 SSE/AVX/FMA 指令：值得付出努力吗？
 # https://medium.com/@sometimescasey/building-tensorflow-from-source-for-sse-avx-fma-instructions-worth-the-effort-fbda4e30eec3
