@@ -5,7 +5,9 @@ cd $DIR
 set -ex
 
 init_py() {
-  rtx install
+  if [ -x "$(command -v rtx)" ]; then
+    rtx install
+  fi
   direnv allow
   direnv exec . pip install -r requirements.txt
 }
