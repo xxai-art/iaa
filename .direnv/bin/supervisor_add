@@ -21,8 +21,6 @@ fi
 sd -s "\$EXE" "bash -c \"export HOME=$HOME && cd $DIR && export PATH=\$PATH:$BIN:$(dirname $(which realpath)) && eval \\\"\$($rtx)\\\" && exec $(which timeout) 1d $(which direnv) exec . $DIR/$2\"" $fp
 
 cd /etc
-
-cd /
-supervisorctl update
+direnv exec . supervisorctl update
 sleep 3
-supervisorctl status
+direnv exec . supervisorctl status
