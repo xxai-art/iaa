@@ -15,11 +15,11 @@ import pillow_avif  # noqa
 from PIL import Image
 from redis.asyncio import StrictRedis
 
-REDIS_HOST, REDIS_PORT = getenv('KV_HOST_PORT').split(':')
+KV_HOST, KV_PORT = getenv('KV_HOST_PORT').split(':')
 
-REDIS = StrictRedis(host=REDIS_HOST,
-                    port=int(REDIS_PORT),
-                    password=getenv('KV_PASSWORD'))
+KV = StrictRedis(host=KV_HOST,
+                 port=int(KV_PORT),
+                 password=getenv('KV_PASSWORD'))
 
 CONN = None
 
@@ -67,7 +67,7 @@ async def _iaa(id):
       SQL('UPDATE bot.task SET iaa={} WHERE id={}').format(s, id))
 
   if s > 25:
-    await REDIS.hset('iaa', u64_bin(id), u64_bin(s))
+    await KV.hset('iaa', u64_bin(id), u64_bin(s))
     return 'clip', id
   else:
     print('iaa=%d' % s, id, url)
