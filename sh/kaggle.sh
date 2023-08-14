@@ -6,7 +6,7 @@ set -ex
 
 ./init.sh &
 
-rm .env
+rm -rf .env
 cp /kaggle/input/config/.env .
 
 source $DIR/sh/_setup.sh
