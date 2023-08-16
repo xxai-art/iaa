@@ -35,7 +35,7 @@ asyncio.run(conn())
 
 POWER = np.array((0.128991374450439, 0.394689166910878, 0.476319458638683))
 
-URL = 'https://5ok.pw/h950/'
+URL = 'https://5ok.pw/h952/'
 
 
 def normalize_score(img):
