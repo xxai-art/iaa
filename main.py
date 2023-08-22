@@ -7,19 +7,19 @@ import asyncio
 from retrying import retry
 from io import BytesIO
 from lib.min_max import MIN, MAX_MIN
-from xsmpy import run, u64_bin
+from xsmpy import run
 from os import getenv
 import psycopg
 from psycopg.sql import SQL
 import pillow_avif  # noqa
 from PIL import Image
-from redis.asyncio import StrictRedis
+# from redis.asyncio import StrictRedis
 
-KV_HOST, KV_PORT = getenv('KV_HOST_PORT').split(':')
-
-KV = StrictRedis(host=KV_HOST,
-                 port=int(KV_PORT),
-                 password=getenv('KV_PASSWORD'))
+# KV_HOST, KV_PORT = getenv('KV_HOST_PORT').split(':')
+#
+# KV = StrictRedis(host=KV_HOST,
+#                  port=int(KV_PORT),
+#                  password=getenv('KV_PASSWORD'))
 
 CONN = None
 
@@ -27,7 +27,7 @@ CONN = None
 async def conn():
   global CONN
   CONN = await psycopg.AsyncConnection.connect('postgresql://' +
-                                               getenv('PG_URI'),
+                                               getenv('APG_URI'),
                                                autocommit=True)
 
 
@@ -67,7 +67,6 @@ async def _iaa(id):
       SQL('UPDATE bot.task SET iaa={} WHERE id={}').format(s, id))
 
   if s > 25:
-    await KV.hset('iaa', u64_bin(id), u64_bin(s))
     return 'clip', id
   else:
     print('iaa=%d' % s, id, url)
