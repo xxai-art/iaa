@@ -4,8 +4,6 @@ set -ex
 
 DIR=`pwd`
 
-bunx cep -c src -o lib
-
 exe=$1
 
 name=xxai-$exe
@@ -26,8 +24,9 @@ sd -s "\$EXE" "bash -c \"[[ -f /etc/profile ]] && source /etc/profile;export HOM
 
 cd /etc
 
-supervisorctl update
-supervisorctl restart $name 
+supervisorctl="direnv exec . supervisorctl"
+$supervisorctl update
+$supervisorctl restart $name 
 killall -9 node
 sleep 3
-supervisorctl status
+$supervisorctl status
