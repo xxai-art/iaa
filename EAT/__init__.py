@@ -21,10 +21,10 @@ def detect_device():
     return xm.xla_device()
   except ImportError:
     pass
-  if MPS:
-    device = 'mps'
-  elif torch.cuda.is_available():
+  if torch.cuda.is_available():
     device = "cuda"
+  # else if MPS:
+  #   device = 'mps'
   else:
     device = 'cpu'
   return torch.device(device)
