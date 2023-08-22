@@ -4,9 +4,9 @@ set -ex
 
 DIR=`pwd`
 
-exe=$1
+exe=$2
 
-name=xxai-$exe
+name=xxai-$1
 ini=$name.ini
 
 fp=/etc/supervisor/conf.d/$ini
@@ -20,13 +20,12 @@ if [ -x "$(command -v brew)" ]; then
 fi
 
 
-sd -s "\$EXE" "bash -c \"[[ -f /etc/profile ]] && source /etc/profile;export HOME=$HOME && cd $DIR && export PATH=\$PATH:$BIN:$(dirname $(which realpath)) && eval \\\"\$($rtx)\\\" && exec $(which timeout) 1d $(which direnv) exec . $DIR/$exe.sh\"" $fp
+sd -s "\$EXE" "bash -c \"[[ -f /etc/profile ]] && source /etc/profile;export HOME=$HOME && cd $DIR && export PATH=\$PATH:$BIN:$(dirname $(which realpath)) && eval \\\"\$($rtx)\\\" && exec $(which timeout) 1d $(which direnv) exec . $DIR/$exe\"" $fp
 
 cd /etc
 
 supervisorctl="direnv exec . supervisorctl"
 $supervisorctl update
 $supervisorctl restart $name 
-killall -9 node
 sleep 3
 $supervisorctl status
