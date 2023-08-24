@@ -51,8 +51,12 @@ async def fetch(url):
 
 
 async def _iaa(id):
-  hash, = await (await CONN.execute(
+  r = await (await CONN.execute(
       SQL('SELECT hash FROM bot.task WHERE id={}').format(id))).fetchone()
+  if not r:
+    print(f"task {id} not exist")
+    return
+  hash, = r
   url = URL + hash
 
   bin = BytesIO(await fetch(url))
