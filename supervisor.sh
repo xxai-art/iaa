@@ -4,4 +4,4 @@ DIR=$(realpath $0) && DIR=${DIR%/*}
 cd $DIR
 set -ex
 
-supervisor_add iaa main.py
+supervisor_add iaa run.sh

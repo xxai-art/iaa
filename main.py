@@ -44,6 +44,8 @@ def normalize_score(img):
 
 
 proxy = getenv('https_proxy')
+if proxy:
+  print('proxy', proxy)
 
 
 @retry(stop_max_attempt_number=9)
