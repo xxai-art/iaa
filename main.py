@@ -43,10 +43,14 @@ def normalize_score(img):
   return np.dot((li - MIN) / MAX_MIN, POWER)
 
 
+proxy = getenv('https_proxy')
+
+
 @retry(stop_max_attempt_number=9)
 async def fetch(url):
+
   async with aiohttp.ClientSession() as session:
-    async with session.get(url) as response:
+    async with session.get(url, proxy=proxy) as response:
       return await response.read()
 
 
